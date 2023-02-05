@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-
 using Moravia.Homework.Domain;
 using Moravia.Homework.Domain.Interfaces;
-using Moravia.Homework.Infrastructure;
 
 namespace Moravia.Homework.Services;
 public class DeserializerService : IDeserializerService
@@ -18,24 +16,24 @@ public class DeserializerService : IDeserializerService
         this.logger = logger;
     }
 
-    public T? Deserialize<T>(string path, LocationType locationType, FileFormat fileFormat)
+    public T? Deserialize<T>(SerializationContext context)
     {
-        if (string.IsNullOrWhiteSpace(path))
+        if (string.IsNullOrWhiteSpace(context.FileName))
         {
             logger.LogError("Source path is empty");
             return default;
         }
 
-        var fileLoader = fileLoaderFactory.Create(locationType);
-        var data = fileLoader.LoadFileAsString(path);
+        var fileLoader = fileLoaderFactory.Create(context.Location);
+        var dataString = fileLoader.LoadFileAsString(context.FileName);
 
-        if (string.IsNullOrWhiteSpace(data))
+        if (string.IsNullOrWhiteSpace(dataString))
         {
             logger.LogError("Source file is empty");
             return default;
         }
 
-        var formatDeserializer = deserializerFactory.Create(fileFormat);
-        return formatDeserializer.Deserialize<T>(data);
+        var formatDeserializer = deserializerFactory.Create(context.Format);
+        return formatDeserializer.Deserialize<T>(dataString);
     }
 }

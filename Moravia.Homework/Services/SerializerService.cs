@@ -17,15 +17,15 @@ public class SerializerService : ISerializerService
         this.fileSaverFactory = fileSaverFactory;
     }
 
-    public void Serialize<T>(T data, string path, LocationType locationType, FileFormat fileFormat)
+    public void Serialize<T>(T data, SerializationContext context)
     {
-        if (string.IsNullOrWhiteSpace(path))
+        if (string.IsNullOrWhiteSpace(context.FileName))
         {
             logger.LogError("Target path is empty");
             return;
         }
 
-        var serializer = serializerFactory.Create(fileFormat);
+        var serializer = serializerFactory.Create(context.Format);
         var dataString = serializer.Serialize(data);
         if (string.IsNullOrWhiteSpace(dataString))
         {
@@ -33,7 +33,7 @@ public class SerializerService : ISerializerService
             return;
         }
 
-        var fileSaver = fileSaverFactory.Create(locationType);
-        fileSaver.SaveFileFromString(path, dataString);
+        var fileSaver = fileSaverFactory.Create(context.Location);
+        fileSaver.SaveFileFromString(context.FileName, dataString);
     }
 }

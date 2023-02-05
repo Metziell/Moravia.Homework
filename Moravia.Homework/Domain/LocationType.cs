@@ -1,4 +1,4 @@
-﻿namespace Moravia.Homework.Infrastructure;
+﻿namespace Moravia.Homework.Domain;
 public enum LocationType
 {
     Unknown,

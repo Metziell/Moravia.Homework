@@ -1,4 +1,5 @@
-﻿using Moravia.Homework.Domain.Interfaces;
+﻿using Moravia.Homework.Domain;
+using Moravia.Homework.Domain.Interfaces;
 
 namespace Moravia.Homework.Infrastructure;
 public class FileLoaderFactory : IFileLoaderFactory

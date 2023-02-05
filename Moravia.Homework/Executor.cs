@@ -21,23 +21,18 @@ internal class Executor
     {
         try
         {
-            logger.LogInformation("test");
-            var source = UserInteraction.GetSourceFileName();
-            var sourceLocation = UserInteraction.GetLocationType();
-            var sourceFormat = UserInteraction.GetFileFormat();
+            var sourceContext = UserInteraction.GetSourceSerializationContext();
 
-            var document = deserializerService.Deserialize<Document>(source, sourceLocation, sourceFormat);
+            var document = deserializerService.Deserialize<Document>(sourceContext);
             if (document == null)
             {
                 UserInteraction.PrintError("Couldn't parse source file.");
                 return;
             }
 
-            var target = UserInteraction.GetTargetFileName();
-            var targetLocation = UserInteraction.GetLocationType();
-            var targetFormat = UserInteraction.GetFileFormat();
+            var targetContext = UserInteraction.GetTargetSerializationContext();
 
-            serializerService.Serialize(document, target, targetLocation, targetFormat);
+            serializerService.Serialize(document, targetContext);
         }
         catch (Exception e)
         {
