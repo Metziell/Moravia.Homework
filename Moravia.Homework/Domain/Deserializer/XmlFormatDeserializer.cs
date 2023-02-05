@@ -13,7 +13,7 @@ public class XmlFormatDeserializer : IDeserializer
         }
 
         var serializer = new XmlSerializer(typeof(T));
-        using var reader = new StringReader(data);
+        using var reader = new StringReader(data.Trim());
 
         return (T?)serializer.Deserialize(reader);
     }

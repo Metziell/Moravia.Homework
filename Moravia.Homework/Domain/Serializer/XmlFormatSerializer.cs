@@ -3,7 +3,7 @@
 using Moravia.Homework.Domain.Interfaces;
 
 namespace Moravia.Homework.Domain.Serializer;
-internal class XmlFormatSerializer : ISerializer
+public class XmlFormatSerializer : ISerializer
 {
     public string Serialize<T>(T data)
     {
