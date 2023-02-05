@@ -27,7 +27,7 @@ public class LocalFileLoader : IFileLoader
         }
         catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is FileNotFoundException)
         {
-            logger.LogError(ex, "Couldn't read data file");
+            logger.LogError(ex, "Couldn't read data file at local path {path}", path);
             return string.Empty;
         }
     }

@@ -29,7 +29,7 @@ public class LocalFileSaver : IFileSaver
         }
         catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is FileNotFoundException)
         {
-            logger.LogError(ex, "Couldn't read data file");
+            logger.LogError(ex, "Couldn't save data file {data} to local path {path}", data, path);
             return false;
         }
     }

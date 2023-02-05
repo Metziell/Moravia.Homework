@@ -30,7 +30,7 @@ public class SerializerService : ISerializerService
         var dataString = serializer.Serialize(data);
         if (string.IsNullOrWhiteSpace(dataString))
         {
-            logger.LogError("Serialized data is empty");
+            logger.LogError("Serialized data is empty for data object {obj}", data);
             return false;
         }
 

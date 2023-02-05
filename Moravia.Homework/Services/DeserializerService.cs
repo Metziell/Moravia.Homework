@@ -31,7 +31,7 @@ public class DeserializerService : IDeserializerService
 
         if (string.IsNullOrWhiteSpace(dataString))
         {
-            logger.LogError("Source file is empty");
+            logger.LogError("Source file at location {location}, path {path} is empty", context.Location, context.FileName);
             return default;
         }
 
