@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Moravia.Homework;
+using Moravia.Homework.API;
 using Moravia.Homework.Domain.Deserializer;
 using Moravia.Homework.Domain.Interfaces;
 using Moravia.Homework.Domain.Serializer;
@@ -43,5 +44,7 @@ internal class Program
 
         services.AddScoped<IDeserializerService, DeserializerService>();
         services.AddScoped<ISerializerService, SerializerService>();
+
+        services.AddTransient<IUserInteraction, UserInteraction>();
     }
 }
