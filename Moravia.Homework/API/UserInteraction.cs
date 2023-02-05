@@ -77,7 +77,7 @@ public class UserInteraction : IUserInteraction
         throw new ValidationException($"Invalid target path: {input}");
     }
 
-    public void PrintError(string message) => Console.WriteLine($"Format conversion failed: {message}");
+    public void PrintError(string message) => Console.WriteLine($"Format conversion failed: {message}{Environment.NewLine}See logs for more information.");
 
     public void PrintResult(string message) => Console.WriteLine(message);
 }

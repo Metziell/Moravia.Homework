@@ -34,11 +34,18 @@ internal class Executor
 
             var targetContext = userInteraction.GetTargetSerializationContext();
 
-            serializerService.Serialize(document, targetContext);
+            var success = serializerService.Serialize(document, targetContext);
+            if (!success) 
+            {
+                userInteraction.PrintError("Couldn't create target file.");
+                return;
+            }
+
+            userInteraction.PrintResult("Format conversion successful.");
         }
         catch (Exception e)
         {
-            userInteraction.PrintError(e.Message);
+            userInteraction.PrintError("Unexpected error.");
             logger.LogError(e, "Format conversion failed");
         }
     }

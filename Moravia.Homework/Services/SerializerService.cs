@@ -16,12 +16,14 @@ public class SerializerService : ISerializerService
         this.fileSaverFactory = fileSaverFactory;
     }
 
-    public void Serialize<T>(T data, SerializationContext context)
+    public bool Serialize<T>(T data, SerializationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context, nameof(context));
+
         if (string.IsNullOrWhiteSpace(context.FileName))
         {
             logger.LogError("Target path is empty");
-            return;
+            return false;
         }
 
         var serializer = serializerFactory.Create(context.Format);
@@ -29,10 +31,12 @@ public class SerializerService : ISerializerService
         if (string.IsNullOrWhiteSpace(dataString))
         {
             logger.LogError("Serialized data is empty");
-            return;
+            return false;
         }
 
         var fileSaver = fileSaverFactory.Create(context.Location);
         fileSaver.SaveFileFromString(context.FileName, dataString);
+
+        return true;
     }
 }
