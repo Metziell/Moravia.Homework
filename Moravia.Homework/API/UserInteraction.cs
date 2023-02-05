@@ -1,9 +1,9 @@
 ﻿using Moravia.Homework.Domain;
 
-namespace Moravia.Homework;
-internal static class UserInteraction
+namespace Moravia.Homework.API;
+public class UserInteraction : IUserInteraction
 {
-    public static SerializationContext GetSourceSerializationContext()
+    public SerializationContext GetSourceSerializationContext()
     {
         var filename = GetSourceFileName();
         var location = GetLocationType();
@@ -12,7 +12,7 @@ internal static class UserInteraction
         return new(filename, location, format);
     }
 
-    public static SerializationContext GetTargetSerializationContext()
+    public SerializationContext GetTargetSerializationContext()
     {
         var filename = GetTargetFileName();
         var location = GetLocationType();
@@ -21,7 +21,7 @@ internal static class UserInteraction
         return new(filename, location, format);
     }
 
-    private static LocationType GetLocationType()
+    private LocationType GetLocationType()
     {
         Console.WriteLine("Provide location type (local, cloud, HTTP):");
         var input = Console.ReadLine();
@@ -35,7 +35,7 @@ internal static class UserInteraction
         };
     }
 
-    private static FileFormat GetFileFormat()
+    private FileFormat GetFileFormat()
     {
         Console.WriteLine("Provide file format (XML, JSON):");
         var input = Console.ReadLine();
@@ -48,7 +48,7 @@ internal static class UserInteraction
         };
     }
 
-    private static string GetSourceFileName()
+    private string GetSourceFileName()
     {
         Console.WriteLine("Location of source file:");
         var input = Console.ReadLine();
@@ -61,7 +61,7 @@ internal static class UserInteraction
         throw new ValidationException($"Invalid source path: {input}");
     }
 
-    private static string GetTargetFileName()
+    private string GetTargetFileName()
     {
         Console.WriteLine("Location of target file:");
         var input = Console.ReadLine();
@@ -77,7 +77,7 @@ internal static class UserInteraction
         throw new ValidationException($"Invalid target path: {input}");
     }
 
-    public static void PrintError(string message) => Console.WriteLine($"Format conversion failed: {message}");
+    public void PrintError(string message) => Console.WriteLine($"Format conversion failed: {message}");
 
-    public static void PrintResult(string message) => Console.WriteLine(message);
+    public void PrintResult(string message) => Console.WriteLine(message);
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moravia.Homework.Domain.Interfaces;
 using Moravia.Homework.Domain;
+using Moravia.Homework.API;
 
 namespace Moravia.Homework;
 internal class Executor
@@ -10,33 +11,34 @@ internal class Executor
     private readonly ISerializerService serializerService;
     private readonly IUserInteraction userInteraction;
 
-    public Executor(ILogger<Executor> logger, IDeserializerService deserializerService, ISerializerService serializerService)
+    public Executor(ILogger<Executor> logger, IDeserializerService deserializerService, ISerializerService serializerService, IUserInteraction userInteraction)
     {
         this.logger = logger;
         this.deserializerService = deserializerService;
         this.serializerService = serializerService;
+        this.userInteraction = userInteraction;
     }
 
     public void Execute()
     {
         try
         {
-            var sourceContext = UserInteraction.GetSourceSerializationContext();
+            var sourceContext = userInteraction.GetSourceSerializationContext();
 
             var document = deserializerService.Deserialize<Document>(sourceContext);
             if (document == null)
             {
-                UserInteraction.PrintError("Couldn't parse source file.");
+                userInteraction.PrintError("Couldn't parse source file.");
                 return;
             }
 
-            var targetContext = UserInteraction.GetTargetSerializationContext();
+            var targetContext = userInteraction.GetTargetSerializationContext();
 
             serializerService.Serialize(document, targetContext);
         }
         catch (Exception e)
         {
-            UserInteraction.PrintError(e.Message);
+            userInteraction.PrintError(e.Message);
             logger.LogError(e, "Format conversion failed");
         }
     }
