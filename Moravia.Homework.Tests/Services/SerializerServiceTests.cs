@@ -21,7 +21,6 @@ public class SerializerServiceTests
     private readonly Mock<IFileSaver> fileSaverMock = new();
     private readonly Mock<ISerializerFactory> serializerFactoryMock = new();
     private readonly Mock<ISerializer> serializerMock = new();
-
     private readonly Fixture fixture = new();
 
     public SerializerServiceTests()
@@ -38,6 +37,7 @@ public class SerializerServiceTests
         var serializedData = fixture.Create<string>();
 
         fileSaverFactoryMock.Setup(x => x.Create(It.IsAny<LocationType>())).Returns(fileSaverMock.Object);
+        fileSaverMock.Setup(x => x.SaveFileFromString(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
         serializerFactoryMock.Setup(x => x.Create(It.IsAny<FileFormat>())).Returns(serializerMock.Object);
         serializerMock.Setup(x => x.Serialize(It.IsAny<Document>())).Returns(serializedData);
 
@@ -58,6 +58,7 @@ public class SerializerServiceTests
 
         fileSaverFactoryMock.Setup(x => x.Create(It.IsAny<LocationType>())).Returns(fileSaverMock.Object);
         fileSaverMock.Setup(x => x.SaveFileFromString(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
+        serializerFactoryMock.Setup(x => x.Create(It.IsAny<FileFormat>())).Returns(serializerMock.Object);
 
         var actual = serializerService.Serialize(data, context);
         
