@@ -35,8 +35,6 @@ public class SerializerService : ISerializerService
         }
 
         var fileSaver = fileSaverFactory.Create(context.Location);
-        fileSaver.SaveFileFromString(context.FileName, dataString);
-
-        return true;
+        return fileSaver.SaveFileFromString(context.FileName, dataString);
     }
 }
