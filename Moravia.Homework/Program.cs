@@ -3,6 +3,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Moravia.Homework;
+using Moravia.Homework.Domain.Deserializer;
+using Moravia.Homework.Domain.Interfaces;
+using Moravia.Homework.Infrastructure;
+using Moravia.Homework.Services;
 
 using Serilog;
 
@@ -31,6 +35,10 @@ internal class Program
 
         services.AddSingleton<Executor>();
 
-        
+        services.AddSingleton<IFileLoaderFactory, FileLoaderFactory>();
+        services.AddSingleton<IFileSaverFactory, FileSaverFactory>();
+        services.AddSingleton<IDeserializerFactory, DeserializerFactory>();
+
+        services.AddScoped<IDeserializerService, DeserializerService>();
     }
 }
