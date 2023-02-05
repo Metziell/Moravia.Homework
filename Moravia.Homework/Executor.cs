@@ -7,12 +7,16 @@ internal class Executor
 {
     private readonly ILogger<Executor> logger;
     private readonly IDeserializerService deserializerService;
+    private readonly ISerializerService serializerService;
+    private readonly IUserInteraction userInteraction;
 
-    public Executor(ILogger<Executor> logger, IDeserializerService deserializerService)
+    public Executor(ILogger<Executor> logger, IDeserializerService deserializerService, ISerializerService serializerService)
     {
         this.logger = logger;
         this.deserializerService = deserializerService;
+        this.serializerService = serializerService;
     }
+
     public void Execute()
     {
         try
@@ -33,7 +37,7 @@ internal class Executor
             var targetLocation = UserInteraction.GetLocationType();
             var targetFormat = UserInteraction.GetFileFormat();
 
-            // TODO
+            serializerService.Serialize(document, target, targetLocation, targetFormat);
         }
         catch (Exception e)
         {

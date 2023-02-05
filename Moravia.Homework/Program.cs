@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Moravia.Homework;
 using Moravia.Homework.Domain.Deserializer;
 using Moravia.Homework.Domain.Interfaces;
+using Moravia.Homework.Domain.Serializer;
 using Moravia.Homework.Infrastructure;
 using Moravia.Homework.Services;
 
@@ -38,7 +39,9 @@ internal class Program
         services.AddSingleton<IFileLoaderFactory, FileLoaderFactory>();
         services.AddSingleton<IFileSaverFactory, FileSaverFactory>();
         services.AddSingleton<IDeserializerFactory, DeserializerFactory>();
+        services.AddSingleton<ISerializerFactory, SerializerFactory>();
 
         services.AddScoped<IDeserializerService, DeserializerService>();
+        services.AddScoped<ISerializerService, SerializerService>();
     }
 }
