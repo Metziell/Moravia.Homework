@@ -18,6 +18,8 @@ public class DeserializerService : IDeserializerService
 
     public T? Deserialize<T>(SerializationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context, nameof(context));
+
         if (string.IsNullOrWhiteSpace(context.FileName))
         {
             logger.LogError("Source path is empty");
