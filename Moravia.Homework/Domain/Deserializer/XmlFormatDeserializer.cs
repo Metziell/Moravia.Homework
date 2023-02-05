@@ -3,7 +3,7 @@
 using Moravia.Homework.Domain.Interfaces;
 
 namespace Moravia.Homework.Domain.Deserializer;
-public class XmlDeserializer : IDeserializer
+public class XmlFormatDeserializer : IDeserializer
 {
     public T? Deserialize<T>(string data)
     {
@@ -12,9 +12,9 @@ public class XmlDeserializer : IDeserializer
             return default;
         }
 
-        var ser = new XmlSerializer(typeof(T));
+        var serializer = new XmlSerializer(typeof(T));
         using var reader = new StringReader(data);
 
-        return (T?)ser.Deserialize(reader);
+        return (T?)serializer.Deserialize(reader);
     }
 }

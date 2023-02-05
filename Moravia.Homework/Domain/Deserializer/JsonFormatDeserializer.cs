@@ -3,7 +3,7 @@
 using Newtonsoft.Json;
 
 namespace Moravia.Homework.Domain.Deserializer;
-public class JsonDeserializer : IDeserializer
+public class JsonFormatDeserializer : IDeserializer
 {
     public T? Deserialize<T>(string data)
     {

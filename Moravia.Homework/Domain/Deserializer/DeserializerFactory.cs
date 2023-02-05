@@ -7,8 +7,8 @@ public class DeserializerFactory : IDeserializerFactory
     {
         return fileFormat switch
         {
-            FileFormat.Xml => new XmlDeserializer(),
-            FileFormat.Json => new JsonDeserializer(),
+            FileFormat.Xml => new XmlFormatDeserializer(),
+            FileFormat.Json => new JsonFormatDeserializer(),
             _ => throw new ArgumentOutOfRangeException(nameof(fileFormat))
         };
     }
