@@ -30,7 +30,7 @@ internal class Executor
             }
             catch (ValidationException ex)
             {
-                userInteraction.PrintError($"Invalid source data: {ex.Message}");
+                userInteraction.PrintError(ex.Message, moreInfoInLogs: false);
                 return;
             }
 
@@ -48,7 +48,7 @@ internal class Executor
             }
             catch (ValidationException ex)
             {
-                userInteraction.PrintError($"Invalid target data: {ex.Message}");
+                userInteraction.PrintError(ex.Message, moreInfoInLogs: false);
                 return;
             }
 

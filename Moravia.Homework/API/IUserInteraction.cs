@@ -5,6 +5,6 @@ public interface IUserInteraction
 {
     SerializationContext GetSourceSerializationContext();
     SerializationContext GetTargetSerializationContext();
-    void PrintError(string message);
+    void PrintError(string message, bool moreInfoInLogs = true);
     void PrintResult(string message);
 }

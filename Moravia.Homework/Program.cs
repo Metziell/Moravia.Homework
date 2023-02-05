@@ -45,6 +45,6 @@ internal class Program
         services.AddScoped<IDeserializerService, DeserializerService>();
         services.AddScoped<ISerializerService, SerializerService>();
 
-        services.AddTransient<IUserInteraction, UserInteraction>();
+        services.AddTransient<IUserInteraction, CommandLineInteraction>();
     }
 }

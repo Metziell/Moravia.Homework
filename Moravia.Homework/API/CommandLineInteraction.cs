@@ -1,11 +1,12 @@
 ﻿using Moravia.Homework.Domain.Types;
 
 namespace Moravia.Homework.API;
-public class UserInteraction : IUserInteraction
+public class CommandLineInteraction : IUserInteraction
 {
     public SerializationContext GetSourceSerializationContext()
     {
-        var filename = GetSourceFileName();
+        Console.WriteLine("Provide source file name:");
+        var filename = GetFileName();
         var location = GetLocationType();
         var format = GetFileFormat();
 
@@ -14,7 +15,8 @@ public class UserInteraction : IUserInteraction
 
     public SerializationContext GetTargetSerializationContext()
     {
-        var filename = GetTargetFileName();
+        Console.WriteLine("Provide target file name:");
+        var filename = GetFileName();
         var location = GetLocationType();
         var format = GetFileFormat();
 
@@ -23,14 +25,12 @@ public class UserInteraction : IUserInteraction
 
     private LocationType GetLocationType()
     {
-        Console.WriteLine("Provide location type (local, cloud, HTTP):");
+        Console.WriteLine("Provide location type (local):");
         var input = Console.ReadLine();
 
         return input?.ToLower() switch
         {
             "local" => LocationType.Local,
-            "cloud" => LocationType.Cloud,
-            "http" => LocationType.Http,
             _ => throw new ValidationException($"Invalid location type: {input}")
         };
     }
@@ -48,36 +48,27 @@ public class UserInteraction : IUserInteraction
         };
     }
 
-    private string GetSourceFileName()
+    private string GetFileName()
     {
-        Console.WriteLine("Location of source file:");
         var input = Console.ReadLine();
 
-        if (File.Exists(input))
+        if (Uri.TryCreate(input, UriKind.RelativeOrAbsolute, out _))
         {
             return input;
         }
 
-        throw new ValidationException($"Invalid source path: {input}");
+        throw new ValidationException($"Invalid file name: {input}");
     }
 
-    private string GetTargetFileName()
+    public void PrintError(string message, bool moreInfoInLogs = true)
     {
-        Console.WriteLine("Location of target file:");
-        var input = Console.ReadLine();
-
-        if (Uri.TryCreate(input, UriKind.RelativeOrAbsolute, out _)
-            && !string.IsNullOrWhiteSpace(Path.GetFileNameWithoutExtension(input))
-            && !string.IsNullOrWhiteSpace(Path.GetExtension(input))
-            && Directory.Exists(Path.GetDirectoryName(input)))
+        Console.WriteLine($"Format conversion failed: {message}");
+        
+        if (moreInfoInLogs)
         {
-            return input;
+            Console.WriteLine("See logs for more information.");
         }
-
-        throw new ValidationException($"Invalid target path: {input}");
     }
-
-    public void PrintError(string message) => Console.WriteLine($"Format conversion failed: {message}{Environment.NewLine}See logs for more information.");
 
     public void PrintResult(string message) => Console.WriteLine(message);
 }
