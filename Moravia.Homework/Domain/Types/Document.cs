@@ -1,2 +1,6 @@
 ﻿namespace Moravia.Homework.Domain.Types;
-public record Document(string Title, string Text);
+public class Document
+{
+    public string? Title { get; init; }
+    public string? Text { get; init; }
+}
