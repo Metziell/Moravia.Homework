@@ -20,6 +20,12 @@ public class SerializerService : ISerializerService
     {
         ArgumentNullException.ThrowIfNull(context, nameof(context));
 
+        if (data == null)
+        {
+            logger.LogError("No data to serialize");
+            return false;
+        }
+
         if (string.IsNullOrWhiteSpace(context.FileName))
         {
             logger.LogError("Target path is empty");
