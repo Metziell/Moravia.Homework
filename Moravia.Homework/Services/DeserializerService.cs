@@ -27,8 +27,12 @@ public class DeserializerService : IDeserializerService
         }
 
         var fileLoader = fileLoaderFactory.Create(context.Location);
-        var dataString = fileLoader.LoadFileAsString(context.FileName);
+        var loadSuccess = fileLoader.TryLoadFileAsString(context.FileName, out var dataString);
 
+        if (!loadSuccess)
+        {
+            return default;
+        }
         if (string.IsNullOrWhiteSpace(dataString))
         {
             logger.LogError("Source file at location {location}, path {path} is empty", context.Location, context.FileName);

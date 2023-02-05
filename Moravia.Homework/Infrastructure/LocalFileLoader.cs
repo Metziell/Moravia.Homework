@@ -12,23 +12,27 @@ public class LocalFileLoader : IFileLoader
         this.logger = logger;
     }
 
-    public string LoadFileAsString(string path)
+    public bool TryLoadFileAsString(string path, out string data)
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return string.Empty;
+            data = default!;
+            return false;
         }
 
         try
         {
             using var stream = File.Open(path, FileMode.Open);
             using var reader = new StreamReader(stream);
-            return reader.ReadToEnd();
+            
+            data = reader.ReadToEnd();
+            return true;
         }
         catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is FileNotFoundException)
         {
             logger.LogError(ex, "Couldn't read data file at local path {path}", path);
-            return string.Empty;
+            data = default!;
+            return false;
         }
     }
 }
