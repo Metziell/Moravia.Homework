@@ -1,7 +1,5 @@
-﻿using Moravia.Homework.Infrastructure;
-
-namespace Moravia.Homework.Domain.Interfaces;
-internal interface IFileSaverFactory
+﻿namespace Moravia.Homework.Domain.Interfaces;
+public interface IFileSaverFactory
 {
     IFileSaver Create(LocationType locationType);
 }
