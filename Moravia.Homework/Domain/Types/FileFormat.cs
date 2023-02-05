@@ -1,4 +1,4 @@
-﻿namespace Moravia.Homework.Domain;
+﻿namespace Moravia.Homework.Domain.Types;
 public enum FileFormat
 {
     Unknown,

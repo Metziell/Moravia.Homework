@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moravia.Homework.Domain.Interfaces;
-using Moravia.Homework.Domain;
 using Moravia.Homework.API;
+using Moravia.Homework.Domain.Types;
 
 namespace Moravia.Homework;
 internal class Executor

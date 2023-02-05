@@ -1,4 +1,6 @@
-﻿namespace Moravia.Homework.Domain.Interfaces;
+﻿using Moravia.Homework.Domain.Types;
+
+namespace Moravia.Homework.Domain.Interfaces;
 public interface ISerializerService
 {
     void Serialize<T>(T data, SerializationContext context);

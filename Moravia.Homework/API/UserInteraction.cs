@@ -1,4 +1,4 @@
-﻿using Moravia.Homework.Domain;
+﻿using Moravia.Homework.Domain.Types;
 
 namespace Moravia.Homework.API;
 public class UserInteraction : IUserInteraction

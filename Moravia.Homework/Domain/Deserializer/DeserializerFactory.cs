@@ -1,4 +1,5 @@
 ﻿using Moravia.Homework.Domain.Interfaces;
+using Moravia.Homework.Domain.Types;
 
 namespace Moravia.Homework.Domain.Deserializer;
 public class DeserializerFactory : IDeserializerFactory

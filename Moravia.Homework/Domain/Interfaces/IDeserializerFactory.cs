@@ -1,4 +1,6 @@
-﻿namespace Moravia.Homework.Domain.Interfaces;
+﻿using Moravia.Homework.Domain.Types;
+
+namespace Moravia.Homework.Domain.Interfaces;
 public interface IDeserializerFactory
 {
     IDeserializer Create(FileFormat fileFormat);
