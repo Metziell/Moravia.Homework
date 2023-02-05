@@ -23,7 +23,16 @@ internal class Executor
     {
         try
         {
-            var sourceContext = userInteraction.GetSourceSerializationContext();
+            SerializationContext sourceContext;
+            try 
+            { 
+                sourceContext = userInteraction.GetSourceSerializationContext();
+            }
+            catch (ValidationException ex)
+            {
+                userInteraction.PrintError($"Invalid source data: {ex.Message}");
+                return;
+            }
 
             var document = deserializerService.Deserialize<Document>(sourceContext);
             if (document == null)
@@ -32,7 +41,16 @@ internal class Executor
                 return;
             }
 
-            var targetContext = userInteraction.GetTargetSerializationContext();
+            SerializationContext targetContext;
+            try
+            {
+                targetContext = userInteraction.GetTargetSerializationContext();
+            }
+            catch (ValidationException ex)
+            {
+                userInteraction.PrintError($"Invalid target data: {ex.Message}");
+                return;
+            }
 
             var success = serializerService.Serialize(document, targetContext);
             if (!success) 
